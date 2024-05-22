@@ -1,11 +1,11 @@
 # G1G2_PROJECT
 
 ## Description
-The main objective of the project, as stated before, is the development of a model to predict the additional time an aircraft will spend in the airport due to the deicing period. There are, however, things surrounding such a model that also need to be created so it can be useful. Thus, it’s expected that, at the end of the project, the following list of deliverables be adequately completed:
+The main objective of the project, is the development of a model to predict the additional time an aircraft will spend in the airport due to the deicing period. There are, however, things surrounding such a model that also need to be created so it can be useful. Thus, it’s expected that, at the end of the project, the following list of deliverables be adequately completed:
 
-An AI model to predict the deicing time of a plane An API to access such a model A visual way to show the previously mentioned AI model working
+**1-An AI model to predict the deicing time of a plane An API to access such a model A visual way to show the previously mentioned AI model working**
 
-A document on how to use all of these programs, what their inputs and outputs are, will also be needed.
+**2- A document on how to use all of these programs, what their inputs and outputs are, will also be needed.**
 
 ## Installation
 To install this project, And Have Acces to the Interface:
