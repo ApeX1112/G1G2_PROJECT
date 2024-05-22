@@ -50,7 +50,7 @@ In addition to the ordinary HTML in Django, there are some new features: [Django
 
 #### Linking CSS and JS Files to an HTML Page
 
-To link a CSS file to an HTML page, use the following code:
+To link a CSS/js file to an HTML page, use the following code:
 
 ```html
 {% load static %}
