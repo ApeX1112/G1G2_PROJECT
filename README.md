@@ -16,7 +16,7 @@ To install this project, And Have Acces to the Interface:
     git clone https://github.com/ApeX1112/G1G2_PROJECT.git
     ```
 
-2. Activate the Virtual Environment (Recommended)
+2. Activate the Virtual Environment **(Recommended)**
 -- for windows 
 
     ```sh
@@ -56,8 +56,8 @@ To link a CSS file to an HTML page, use the following code:
 {% load static %}
 css : <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 js : <script src="{% static 'js/script.jsx' }"></script>
-
-Make sure to include {% load static %} at the beginning of your HTML file to load the static files.
+```
+Make sure to include **{% load static %}** at the beginning of your HTML file to load the static files.
 
 
 
