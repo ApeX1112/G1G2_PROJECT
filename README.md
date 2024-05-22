@@ -41,29 +41,24 @@ To install this project, And Have Acces to the Interface:
 6. open 'http://127.0.0.1:8000/'
 
 ## Usage
-### for the frontend :
-    the usage of html , css , js in django for the frontend :
 
-    in addition to the ordinary html in django there s some new features :  https://docs.djangoproject.com/en/5.0/ref/templates/language/
+### For the Frontend
 
-    to link a css , js file to a html page :
+The usage of HTML, CSS, and JavaScript in Django for the frontend:
 
-        css :  
-                ```sh
-                {% load static %}
+In addition to the ordinary HTML in Django, there are some new features: [Django Template Language](https://docs.djangoproject.com/en/5.0/ref/templates/language/)
 
+#### Linking CSS and JS Files to an HTML Page
 
-                <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-            
-                ```
+To link a CSS file to an HTML page, use the following code:
 
-        js:
+```html
+{% load static %}
+css : <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+js : <script src="{% static 'js/script.jsx' }"></script>
 
-            ```sh
-            {% load static %}
+Make sure to include {% load static %} at the beginning of your HTML file to load the static files.
 
-            <script src="{% static 'js/script.jsx' }"></script>
-            ```
 
 
 
