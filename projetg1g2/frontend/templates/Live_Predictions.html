@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'css/Live_Predictions.css' %}">
+    <title>Live Predictions</title>
+    
+</head>
+<body>
+    
+    <h1 >Live Predictions</h1>
+    <h2 id="sidebar-title"></h2>
+    <p id="country"></p>
+    <p id="state"></p>
+    <p id="city"></p>
+    <div id="map"></div>
+
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{% static 'js/Live_Predictions.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Ignore directories
+test/
+
+# Ignore specific files
+*.log
+*.tmp
