@@ -1,6 +1,6 @@
 # Ignore directories
 test/
-
+.vscode/
 # Ignore specific files
-*.log
-*.tmp
+*.cashe.sqlite
+
