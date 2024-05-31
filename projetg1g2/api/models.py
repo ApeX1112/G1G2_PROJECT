@@ -12,3 +12,10 @@ class airport(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class WeatherData(models.Model):
+    airport=models.ForeignKey(airport,on_delete=models.CASCADE)
+    temperature_5m=models.FloatField()
+    temperature_120m=models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
