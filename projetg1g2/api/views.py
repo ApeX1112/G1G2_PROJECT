@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import airport
-from .serializers import AirportSerializer
+from .models import airport , WeatherData
+from .serializers import AirportSerializer , WeatherDataSerializer
 
 
 
@@ -42,5 +42,11 @@ def data_api(request):
 def aeroport_details(request,code):
     details=airport.objects.filter(code=code)
     serializer=AirportSerializer(details,many=True)
+
+    return JsonResponse(serializer.data,safe=False)
+
+def Weather_data(request,code):
+    weatherdata=WeatherData.objects.get(airport__code=code)
+    serializer=WeatherDataSerializer(weatherdata)
 
     return JsonResponse(serializer.data,safe=False)

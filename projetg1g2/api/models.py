@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class airport(models.Model):
 
@@ -16,6 +17,12 @@ class airport(models.Model):
 
 class WeatherData(models.Model):
     airport=models.ForeignKey(airport,on_delete=models.CASCADE)
-    temperature_5m=models.FloatField()
-    temperature_120m=models.FloatField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    temperature_2m=models.JSONField(default=dict)
+    snowfall=models.JSONField(default=dict)
+    snow_depth=models.JSONField(default=dict)
+    wind_speed_10m=models.JSONField(default=dict)
+    start=models.DateTimeField(default=timezone.now)
+    end=models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return f'{self.airport.name}from :{self.start}-- to :{self.end}'

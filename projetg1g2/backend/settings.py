@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'django_apscheduler',
+    
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,7 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'backend.urls'
+
 
 TEMPLATES = [
     {
