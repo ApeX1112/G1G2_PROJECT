@@ -14,15 +14,7 @@ retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
 openmeteo = openmeteo_requests.Client(session = retry_session)
 
 
-weather_parameters = {
-    "temperature_2m": "Temperature at 2 meters",
-    "temperature_5m": "Temperature at 5 meters",
-    "temperature_80m": "Temperature at 80 meters",
-    "snowfall": "Snowfall rate",
-    "snow_depth": "Snow depth",
-    "humidity_2m": "Humidity at 2 meters",
-    "wind_speed_10m": "Wind speed at 10 meters"
-}
+
 url = "https://api.open-meteo.com/v1/forecast"
 
 def chunk_list(lst, chunk_size):
