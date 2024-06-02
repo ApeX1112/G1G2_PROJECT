@@ -21,9 +21,21 @@ fetch('http://127.0.0.1:8000/airports')
                             document.getElementById('country').textContent = "country:" + detail.country;
                             document.getElementById('state').textContent = "state:" + detail.state;
                             document.getElementById('city').textContent = "city:" + detail.city;
+                            fetch(`http://127.0.0.1:8000/airports_weather/${position.code}/`)
+                                .then(response=>response.json())
+                                .then(data=>{
+                        
+                                    console.log(data.temperature_2m
+                                    )
+                        
+                                })
+                    .catch(error => console.error('Error fetching the weather data:', error));
                         })
                     })
+                    
                     .catch(error => console.error('Error fetching the JSON data:', error));
+                
+                
             });
         });
     })
