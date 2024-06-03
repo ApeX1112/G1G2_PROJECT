@@ -1,0 +1,3 @@
+{% for airport in airports %}
+<a href="{% url 'weather' airport.code %}">{{airport.name}}</a><br>
+{% endfor %}

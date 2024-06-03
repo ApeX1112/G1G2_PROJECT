@@ -1,0 +1,3 @@
+{% for airport in airports %}
+<a href="{% url 'details' airport.code %}">{{airport.name}}</a><br>
+{% endfor %}

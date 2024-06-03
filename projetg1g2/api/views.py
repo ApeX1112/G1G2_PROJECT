@@ -50,3 +50,19 @@ def Weather_data(request,code):
     serializer=WeatherDataSerializer(weatherdata)
 
     return JsonResponse(serializer.data,safe=False)
+
+
+def apis(request):
+
+    return render(request,"API/apis.html")
+
+def aeroports1(request):
+    airoports=airport.objects.all()
+    context={"airports":airoports}
+    return render(request,"API/aeroport_details.html",context)
+
+
+def aeroports2(request):
+    airoports=airport.objects.all()
+    context={"airports":airoports}
+    return render(request,"API/aeroport_weather.html",context)
