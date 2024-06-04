@@ -25,7 +25,7 @@ To install this project, And Have Acces to the Interface:
 3. Install the required dependencies:
 
     ```sh
-    python -m pip install -r requirements.txt
+    python -m pip install -r requirments.txt
     ```
 
 4. Navigate to the project directory:
