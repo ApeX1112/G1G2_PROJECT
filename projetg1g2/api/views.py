@@ -66,3 +66,6 @@ def aeroports2(request):
     airoports=airport.objects.all()
     context={"airports":airoports}
     return render(request,"API/aeroport_weather.html",context)
+
+
+
