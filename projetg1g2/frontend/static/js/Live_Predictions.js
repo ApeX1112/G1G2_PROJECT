@@ -24,14 +24,17 @@ fetch('http://127.0.0.1:8000/airports')
 
                             const selectedDay = document.querySelector('input[name="day"]:checked');
                             const hourInput = document.getElementById('hour-input');
-                            const hour = parseInt(hourInput.value, 10);
-                            const dayIndex =parseInt(selectedDay.value, 10);
-                            const day =`day ${dayIndex+1}`
+                            const hour = parseInt(hourInput.value);
+                            
+                            const dayIndex =parseInt(selectedDay.value);
+                            const day =`day${dayIndex+1}`
+                            const test={"day 1":[0,1,2,3,4,5,6,8,9]}
 
                             fetch(`http://127.0.0.1:8000/airports_weather/${position.code}/`)
                                 .then(response=>response.json())
                                 .then(data=>{
                         
+                                    
                                     document.getElementById('temperature').textContent = "temperature:" + data.temperature_2m[day][hour];
                                     document.getElementById('snowfall').textContent = "snowfall:" + data.snowfall[day][hour];
                                     document.getElementById('snowdepth').textContent = "snow depth:" + data.snow_depth[day][hour];
