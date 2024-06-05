@@ -29,13 +29,19 @@ def Dashboard(request):
 
 def Model_inputs(request):
     q=request.GET.get('q')
+    temp_data=[]
     
     if q:
         airports = airport.objects.filter(Q(name__icontains=q) | Q(country__icontains=q) | Q(city__icontains=q))
     else:
         airports=airport.objects.none()
+
+    for airport in airports :
+        weather=WeatherData.objects.filter(airport=airport)
+        temperature_data=weather.temperature_2m
+        temp_data.append(airport,temperature_data)
     
-    context={'airports':airports}
+    context={'airports':airports, "temp_data":temp_data}
     return render( request,'Model_inputs.html',context)
 
 
