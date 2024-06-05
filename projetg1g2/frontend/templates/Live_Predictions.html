@@ -25,6 +25,8 @@
     <input type="number" id="hour-input" min="0" max="23" value="0">
     <p id="temperature-display"></p>
 
+    
+
     <div id="day-container">
         <label>Select Day:</label>
         <label><input type="radio" name="day" value="0" checked> Day 1 (today)</label>
@@ -34,6 +36,11 @@
         <label><input type="radio" name="day" value="4"> Day 5</label>
         <label><input type="radio" name="day" value="5"> Day 6</label>
         <label><input type="radio" name="day" value="6"> Day 7</label>
+    </div>
+
+    <div id="slider-container">
+        <label for="airport-slider">Number of Displayed Airports: <span id="slider-value">10</span></label>
+        <input type="range" id="airport-slider" min="1" max="50" value="10" />
     </div>
 
     <div id="map"></div>
