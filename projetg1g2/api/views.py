@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import airport , WeatherData
 from .serializers import AirportSerializer , WeatherDataSerializer
+from django.db.models import Q
 
 
 
@@ -27,9 +28,15 @@ def Dashboard(request):
 
 
 def Model_inputs(request):
-
+    q=request.GET.get('q')
     
-    return render( request,'Model_inputs.html')
+    if q:
+        airports = airport.objects.filter(Q(name__icontains=q) | Q(country__icontains=q) | Q(city__icontains=q))
+    else:
+        airports=airport.objects.none()
+    
+    context={'airports':airports}
+    return render( request,'Model_inputs.html',context)
 
 
 def data_api(request):

@@ -28,7 +28,7 @@ fetch('http://127.0.0.1:8000/airports')
                             
                             const dayIndex =parseInt(selectedDay.value);
                             const day =`day${dayIndex+1}`
-                            const test={"day 1":[0,1,2,3,4,5,6,8,9]}
+                            
 
                             fetch(`http://127.0.0.1:8000/airports_weather/${position.code}/`)
                                 .then(response=>response.json())

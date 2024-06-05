@@ -11,7 +11,14 @@
 </head>
 <body>
     <h1>Model_inputs</h1>
+    <form  action='' method="get">
+        <input type="text" placeholder="airport name/country/city " name="q" class="search-bar" value="{{ search_query }}">
+        <button type="submit">search</button>
+    </form>
 
-    <input type="text" placeholder="Search for an airoport " name="q" class="search-bar" value="{{ search_query }}">
+    {% for airport in airports %}
+
+    <p>{{airport.name}}</p>
+    {% endfor%}
 </body>
 </html>
