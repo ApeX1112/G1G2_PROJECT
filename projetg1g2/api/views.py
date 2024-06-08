@@ -38,8 +38,11 @@ def Model_inputs(request):
 
     for airport_obj in airports :
         weather=WeatherData.objects.get(airport=airport_obj)
+        snowfall_data=weather.snowfall
+        snow_depth_data=weather.snow_depth
+        wind_speed_10m_data=weather.wind_speed_10m
         temperature_data=weather.temperature_2m
-        temp_data.append((airport_obj,temperature_data))
+        temp_data.append((airport_obj,temperature_data,snowfall_data,snow_depth_data,wind_speed_10m_data))
     
     context={ "temp_data":temp_data}
     return render( request,'Model_inputs.html',context)
