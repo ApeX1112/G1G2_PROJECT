@@ -36,12 +36,12 @@ def Model_inputs(request):
     else:
         airports=airport.objects.none()
 
-    for airport in airports :
-        weather=WeatherData.objects.filter(airport=airport)
+    for airport_obj in airports :
+        weather=WeatherData.objects.get(airport=airport_obj)
         temperature_data=weather.temperature_2m
-        temp_data.append(airport,temperature_data)
+        temp_data.append((airport_obj,temperature_data))
     
-    context={'airports':airports, "temp_data":temp_data}
+    context={ "temp_data":temp_data}
     return render( request,'Model_inputs.html',context)
 
 

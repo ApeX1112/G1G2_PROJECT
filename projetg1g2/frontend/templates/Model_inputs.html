@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/Model_inputs.css' %}">
     <script src="{% static 'js/Model_inputs.jsx' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Model_inputs</h1>
@@ -16,9 +17,55 @@
         <button type="submit">search</button>
     </form>
 
-    {% for airport in airports %}
+    
+    {% for airport, temp in temp_data %}
+    <div>
+        <p><strong>Airport:</strong> {{ airport.name }}</p>
+        <canvas id="chart-{{ forloop.counter }}"></canvas>
+        <script>
+            var ctx = document.getElementById('chart-{{ forloop.counter }}').getContext('2d');
+            var labels = [];
+            var data = [];
+            
+            {% for day, temps in temp.items %}
+                {% for t in temps %}
+                    labels.push("{{ day }} {{ forloop.counter0 }}");
+                    data.push({{ t }});
+                {% endfor %}
+            {% endfor %}
 
-    <p>{{airport.name}}</p>
-    {% endfor%}
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Temperature',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Temperature (°C)'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+    {% endfor %}
+    
 </body>
 </html>
