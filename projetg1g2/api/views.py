@@ -4,9 +4,16 @@ from .models import airport , WeatherData
 from .serializers import AirportSerializer , WeatherDataSerializer
 from django.db.models import Q
 
-from modele_degivrage_test import alg1,alg2,alg3
+from modele_degivrage_test import alg1,alg2,alg3,alg4
 from itertools import chain
 
+
+def flatten_values(data_dict):
+    """Flatten the values of a nested dictionary into a single list."""
+    flat_list = []
+    for key, values in data_dict.items():
+        flat_list.extend(values)
+    return flat_list
 
 
 def home(request):
@@ -76,10 +83,23 @@ def aeroport_details(request,code):
     return JsonResponse(serializer.data,safe=False)
 
 def Weather_data(request,code):
+    highlighted=[]
     weatherdata=WeatherData.objects.get(airport__code=code)
     serializer=WeatherDataSerializer(weatherdata)
 
-    return JsonResponse(serializer.data,safe=False)
+    data = serializer.data
+
+    temperature_values = flatten_values(data['temperature_2m'])
+    wind_speed_values = flatten_values(data['wind_speed_10m'])
+    snowfall_values = flatten_values(data['snowfall'])
+    snow_depth_values = flatten_values(data['snow_depth'])
+
+    for a,b,c,d in list(zip(temperature_values,wind_speed_values,snow_depth_values,snowfall_values)):
+        highlighted.append(alg4.alg4(a,b,c,d))
+
+    data['highlighted']=highlighted
+
+    return JsonResponse(data,safe=False)
 
 
 def apis(request):
