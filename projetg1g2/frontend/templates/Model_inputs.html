@@ -18,7 +18,7 @@
     </form>
 
     
-    {% for airport, temp ,snowfall,snow_depth,wind_speed_10m in temp_data %}
+    {% for airport, temp ,snowfall,snow_depth,wind_speed_10m,predictions in temp_data %}
     <div>
         <p><strong>Airport:</strong> {{ airport.name }}</p>
         <canvas id="chart-{{ forloop.counter }}"></canvas>
@@ -29,6 +29,7 @@
             var data_snowfall=[]
             var data_snow_depth=[]
             var data_speed_10m=[]
+            var preds=[]
             
             {% for day, temps in temp.items %}
                 {% for t in temps %}
@@ -54,6 +55,14 @@
                     data_speed_10m.push({{ win}});
                 {% endfor %}
             {% endfor %}
+
+            {% for pred in predictions %}
+                
+                preds.push({{ pred}});
+                
+            {% endfor %}
+
+
 
             var chart = new Chart(ctx, {
                 type: 'line',
@@ -81,6 +90,12 @@
                         label: 'wind_speed',
                         data: data_speed_10m,
                         borderColor: 'rgba(75, 50, 50, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    },{
+                        label: 'predictions',
+                        data: preds,
+                        borderColor: 'rgba(255, 0, 0, 1)',
                         borderWidth: 1,
                         fill: false
                     }]

@@ -4,6 +4,9 @@ from .models import airport , WeatherData
 from .serializers import AirportSerializer , WeatherDataSerializer
 from django.db.models import Q
 
+from modele_degivrage_test import alg1,alg2,alg3
+from itertools import chain
+
 
 
 def home(request):
@@ -42,7 +45,18 @@ def Model_inputs(request):
         snow_depth_data=weather.snow_depth
         wind_speed_10m_data=weather.wind_speed_10m
         temperature_data=weather.temperature_2m
-        temp_data.append((airport_obj,temperature_data,snowfall_data,snow_depth_data,wind_speed_10m_data))
+        predictions=[]
+
+        temperature_flat = list(chain.from_iterable(temperature_data.values()))
+        wind_speed_flat = list(chain.from_iterable(wind_speed_10m_data.values()))
+        snow_depth_flat = list(chain.from_iterable(snow_depth_data.values()))
+        snowfall_flat = list(chain.from_iterable(snowfall_data.values()))
+
+        for a, b, c, d in zip(temperature_flat, wind_speed_flat, snow_depth_flat, snowfall_flat):
+            prediction = alg1.alg1(a, b, c, d)
+            predictions.append(prediction)
+
+        temp_data.append((airport_obj,temperature_data,snowfall_data,snow_depth_data,wind_speed_10m_data,predictions))
     
     context={ "temp_data":temp_data}
     return render( request,'Model_inputs.html',context)
