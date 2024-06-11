@@ -84,6 +84,7 @@ def aeroport_details(request,code):
 
 def Weather_data(request,code):
     highlighted=[]
+    preds1=[]
     weatherdata=WeatherData.objects.get(airport__code=code)
     serializer=WeatherDataSerializer(weatherdata)
 
@@ -96,8 +97,10 @@ def Weather_data(request,code):
 
     for a,b,c,d in list(zip(temperature_values,wind_speed_values,snow_depth_values,snowfall_values)):
         highlighted.append(alg4.alg4(a,b,c,d))
+        preds1.append(alg1.alg1(a,b,c,d))
 
     data['highlighted']=highlighted
+    data['predictions_alg1']=preds1
 
     return JsonResponse(data,safe=False)
 

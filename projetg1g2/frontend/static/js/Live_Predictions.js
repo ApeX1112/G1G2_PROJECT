@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const highlightedIcon = L.icon({
         iconUrl: highlightedIconUrl,
-        iconSize: [25, 41],
+        iconSize: [30, 45],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         })
                         .then(weatherData => {
                             // Check the highlighted array for the selected day and hour
-                            if (weatherData.highlighted[7*dayIndex+hour]) {
+                            if (weatherData.highlighted[24*dayIndex+hour]) {
                                 marker.setIcon(highlightedIcon);
                             } else {
                                 marker.setIcon(regularIcon);
@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                         document.getElementById('snowfall').textContent = "snowfall: " + weatherData.snowfall[day][hour];
                                         document.getElementById('snowdepth').textContent = "snow depth: " + weatherData.snow_depth[day][hour];
                                         document.getElementById('wind').textContent = "wind speed 10m: " + weatherData.wind_speed_10m[day][hour];
+                                        document.getElementById('preds1').textContent = "alg1: " + weatherData.predictions_alg1[24*dayIndex+hour];
                                     })
                                     .catch(error => console.error('Error fetching the weather data:', error));
                             })
@@ -110,10 +111,10 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error fetching the airports:', error));
     }
 
-    // Initial load
+
     updateMap(10);
 
-    // Slider functionality
+    
     const slider = document.getElementById('airport-slider');
     const sliderValue = document.getElementById('slider-value');
 
@@ -123,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateMap(num);
     });
 
-    // Event listeners for day and hour changes
+   
     document.querySelectorAll('input[name="day"]').forEach(dayInput => {
         dayInput.addEventListener('change', () => {
             const num = parseInt(slider.value);
