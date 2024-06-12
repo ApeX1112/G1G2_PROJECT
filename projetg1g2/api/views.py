@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import airport , WeatherData
 from .serializers import AirportSerializer , WeatherDataSerializer
 from django.db.models import Q
+from django.utils import timezone
 
 from modele_degivrage_test import alg1,alg2,alg3,alg4
 from itertools import chain
@@ -32,9 +33,19 @@ def LivePred(request):
 
 
 def Dashboard(request):
+    data = []
+    weather_data = WeatherData.objects.all().select_related('airport')
+    for wd in weather_data:
+        data.append({
+            "airport": wd.airport.name,
+            "predictions": [
+                {"date": (wd.start + timezone.timedelta(hours=i)).strftime('%Y-%m-%d %H:%M:%S'), "value": wd.preds_1[i]}
+                for i in range(24 * 7)
+            ]
+        })
 
 
-    return render( request,'Dashboard.html')
+    return render( request,'Dashboard.html', {'data': data})
 
 
 def Model_inputs(request):
@@ -101,6 +112,11 @@ def Weather_data(request,code):
 
     data['highlighted']=highlighted
     data['predictions_alg1']=preds1
+    
+    weatherdata.highlighted=highlighted
+    weatherdata.preds_1=preds1
+    weatherdata.save()
+
 
     return JsonResponse(data,safe=False)
 
