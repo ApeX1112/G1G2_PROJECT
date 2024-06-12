@@ -24,13 +24,35 @@
     </style>
 </head>
 <body>
+
+    <h1>Dashboard</h1>
+    <h2> number of airoports : {{len}}</h2>
+    <h2>predictions for each airoport:</h2>
     <div id="chart"></div>
     <div id="tooltip" class="tooltip" style="opacity:0;"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <script>
-        // Data passed from Django view
+        
         const data = {{ data|safe }};
 
-        // Parse the date / time
+        
         const parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
         data.forEach(d => {
@@ -39,7 +61,7 @@
             });
         });
 
-        // Specify the chart’s dimensions.
+        
         const width = 928;
         const height = 600;
         const marginTop = 20;
@@ -47,7 +69,7 @@
         const marginBottom = 30;
         const marginLeft = 30;
 
-        // Create the positional scales.
+        
         const x = d3.scaleUtc()
             .domain(d3.extent(data[0].predictions, d => d.date))
             .range([marginLeft, width - marginRight]);
@@ -56,19 +78,19 @@
             .domain([0, d3.max(data, c => d3.max(c.predictions, d => d.value))]).nice()
             .range([height - marginBottom, marginTop]);
 
-        // Create the SVG container.
+        
         const svg = d3.select("#chart").append("svg")
             .attr("width", width)
             .attr("height", height)
             .attr("viewBox", [0, 0, width, height])
             .attr("style", "max-width: 100%; height: auto; overflow: visible; font: 10px sans-serif;");
 
-        // Add the horizontal axis.
+        
         svg.append("g")
             .attr("transform", `translate(0,${height - marginBottom})`)
             .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
 
-        // Add the vertical axis.
+       
         svg.append("g")
             .attr("transform", `translate(${marginLeft},0)`)
             .call(d3.axisLeft(y))
@@ -83,13 +105,13 @@
                 .attr("text-anchor", "start")
                 .text("↑ Prediction Value"));
 
-        // Compute the points in pixel space as [x, y, z], where z is the name of the series.
+        
         const points = data.flatMap(({airport, predictions}) => predictions.map(p => [x(p.date), y(p.value), airport]));
 
-        // Group the points by series.
+        
         const groups = d3.group(points, d => d[2]);
 
-        // Draw the lines.
+        
         const line = d3.line();
         const path = svg.append("g")
             .attr("fill", "none")
@@ -103,7 +125,7 @@
             .style("mix-blend-mode", "multiply")
             .attr("d", d => line(d));
 
-        // Add an invisible layer for the interactive tip.
+        
         const dot = svg.append("g")
             .attr("display", "none");
 
@@ -133,12 +155,12 @@
         }
 
         function pointerentered() {
-            path.style("mix-blend-mode", null).style("stroke", "#ddd").style("opacity", 0.2);
+            path.style("mix-blend-mode", null).style("stroke", "#ddd").style("opacity", 0.5);
             dot.attr("display", null);
         }
 
         function pointerleft() {
-            path.style("mix-blend-mode", "multiply").style("stroke", "steelblue").style("opacity", 1);
+            path.style("mix-blend-mode", "multiply").style("stroke", "steelblue").style("opacity", 0.9);
             dot.attr("display", "none");
             svg.node().value = null;
             svg.dispatch("input", {bubbles: true});

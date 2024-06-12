@@ -35,6 +35,7 @@ def LivePred(request):
 def Dashboard(request):
     data = []
     weather_data = WeatherData.objects.all().select_related('airport')
+    lenght=0
     for wd in weather_data:
         data.append({
             "airport": wd.airport.name,
@@ -43,9 +44,12 @@ def Dashboard(request):
                 for i in range(24 * 7)
             ]
         })
+        lenght+=1
+    
+    context={'data': data , 'len':lenght}
 
 
-    return render( request,'Dashboard.html', {'data': data})
+    return render( request,'Dashboard.html', context)
 
 
 def Model_inputs(request):
