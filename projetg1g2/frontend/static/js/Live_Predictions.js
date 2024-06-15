@@ -1,5 +1,7 @@
 
-
+document.getElementById('cross').addEventListener('click', function() {
+    document.getElementById('sidebar').style.display = 'none';
+});
 document.addEventListener("DOMContentLoaded", function() {
     var regularIconUrl = "/static/assets/marker-icon.png";
     var highlightedIconUrl = "/static/assets/red_marker.webp";
