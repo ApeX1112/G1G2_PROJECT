@@ -7,6 +7,16 @@ from django.utils import timezone
 
 from modele_degivrage_test import alg1,alg2,alg3,alg4
 from itertools import chain
+import json
+
+
+
+
+
+
+
+
+
 
 
 def flatten_values(data_dict):
@@ -25,6 +35,7 @@ def home(request):
 
 
 def LivePred(request):
+    
 
 
 
