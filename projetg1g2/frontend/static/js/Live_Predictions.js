@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var highlightedIconUrl = "/static/assets/red_marker.webp";
 
     var map = L.map('map').setView([20, 0], 2);
+    document.getElementById('sidebar').style.display = 'none';
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
     }).addTo(map);
@@ -82,7 +83,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                 return response.json();
                             })
                             .then(details => {
-                                const detail = details[0]; // Assuming details is an array and we need the first item
+                                const detail = details[0];
+                                document.getElementById('sidebar').style.display = 'block'; // Assuming details is an array and we need the first item
                                 document.getElementById('sidebar-title').textContent = detail.name;
                                 document.getElementById('country').textContent = "country: " + detail.country;
                                 document.getElementById('state').textContent = "state: " + detail.state;
