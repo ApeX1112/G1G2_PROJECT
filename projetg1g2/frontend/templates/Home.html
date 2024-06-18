@@ -10,10 +10,14 @@
     <script src="{% static 'js/Home.js' %}"></script>
 </head>
 <body>
-    <h1 class="title "> Projet G1 / G2</h1>
-
-    
-    <a href="{% url 'LivePreds' %}">Live Predictions</a>
+    <p class="bouton">Sign up</p>
+    <p class="bouton"><a href="{% url 'LivePreds' %}">Live Predictions</a></p>
+    <p class="bouton"><a href="{% url 'Dashboard' %}">Dashboard</a></p>
+    <p class="bouton">Documentation</p>
+    <p class="bouton">About us</p>
+    <p></p>
+    <h1 class="title">Empower Your Runways: Advanced De-Icing Predictions for Safer Skies</h1>
+    <a href="{% url 'LivePreds' %}">Live Predictions and more</a>
     <a href="{% url 'Dashboard' %}">Dashboard</a>
 
     <a href="{%url 'Model_inputs' %}">model input</a>
