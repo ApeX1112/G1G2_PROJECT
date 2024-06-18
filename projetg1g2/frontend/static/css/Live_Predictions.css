@@ -1,5 +1,85 @@
+
 #map {
-    height: 600px;
+    height: 100vh;
     width: 100%;
     
+}
+#sidebar{
+    position: fixed;
+    z-index: 1000;
+    background-color: rgb(37, 35, 35);
+    color: aliceblue;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    margin-left: 35px;
+    height: 100%;
+    display: block;
+    
+
+}
+
+#sidebar img {
+    width: 15px;
+    cursor: pointer;
+}
+#sidebar p {
+    margin-top: 10px;
+    background-color: rgb(70, 67, 67);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+}
+#sidebar p:hover{
+    transform: scale(1.2,1.2);
+}
+#day-container{
+    position: fixed;
+    top:90vh;
+    left: 35%;
+    z-index: 10001;
+    background-color: rgb(37, 35, 35);
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    display: flex;
+    gap:30px;
+    font-size: 18px;
+    
+}
+#day-container label {
+    color: aliceblue;
+    
+}
+#hourblock{
+    position: fixed;
+    left: 50%;
+    top:83vh;
+    z-index: 10002;
+    font-size: 18px;
+    background-color: rgb(37, 35, 35);
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    color: aliceblue;
+}
+#slider-container{
+    position: fixed;
+    left: 40%;
+    top:2vh;
+    z-index: 10003;
+    font-size: 18px;
+    background-color: rgb(37, 35, 35);
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    color: aliceblue;
 }

@@ -21,6 +21,8 @@ class WeatherData(models.Model):
     snowfall=models.JSONField(default=dict)
     snow_depth=models.JSONField(default=dict)
     wind_speed_10m=models.JSONField(default=dict)
+    highlighted=models.JSONField(default=dict)
+    preds_1=models.JSONField(default=dict)
     start=models.DateTimeField(default=timezone.now)
     end=models.DateTimeField(default=timezone.now)
 

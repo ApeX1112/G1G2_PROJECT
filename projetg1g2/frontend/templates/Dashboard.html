@@ -1,15 +1,170 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/Dashboard.css' %}">
-    <script src="{% static 'js/Dashboard.js' %}"></script>
+    <title>Airport Predictions</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .line {
+            fill: none;
+            stroke-width: 1.5px;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: auto;
+            height: auto;
+            padding: 5px;
+            background: lightsteelblue;
+            border: 1px solid #333;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
+
     <h1>Dashboard</h1>
+    <h2> number of airoports : {{len}}</h2>
+    <h2>predictions for each airoport:</h2>
+    <div id="chart"></div>
+    <div id="tooltip" class="tooltip" style="opacity:0;"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+        
+        const data = {{ data|safe }};
+
+        
+        const parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
+
+        data.forEach(d => {
+            d.predictions.forEach(p => {
+                p.date = parseTime(p.date);
+            });
+        });
+
+        
+        const width = 928;
+        const height = 600;
+        const marginTop = 20;
+        const marginRight = 20;
+        const marginBottom = 30;
+        const marginLeft = 30;
+
+        
+        const x = d3.scaleUtc()
+            .domain(d3.extent(data[0].predictions, d => d.date))
+            .range([marginLeft, width - marginRight]);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, c => d3.max(c.predictions, d => d.value))]).nice()
+            .range([height - marginBottom, marginTop]);
+
+        
+        const svg = d3.select("#chart").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("viewBox", [0, 0, width, height])
+            .attr("style", "max-width: 100%; height: auto; overflow: visible; font: 10px sans-serif;");
+
+        
+        svg.append("g")
+            .attr("transform", `translate(0,${height - marginBottom})`)
+            .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
+
+       
+        svg.append("g")
+            .attr("transform", `translate(${marginLeft},0)`)
+            .call(d3.axisLeft(y))
+            .call(g => g.select(".domain").remove())
+            .call(g => g.selectAll(".tick line").clone()
+                .attr("x2", width - marginLeft - marginRight)
+                .attr("stroke-opacity", 0.1))
+            .call(g => g.append("text")
+                .attr("x", -marginLeft)
+                .attr("y", 10)
+                .attr("fill", "currentColor")
+                .attr("text-anchor", "start")
+                .text("↑ Prediction Value"));
+
+        
+        const points = data.flatMap(({airport, predictions}) => predictions.map(p => [x(p.date), y(p.value), airport]));
+
+        
+        const groups = d3.group(points, d => d[2]);
+
+        
+        const line = d3.line();
+        const path = svg.append("g")
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 1.5)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+          .selectAll("path")
+          .data(groups.values())
+          .join("path")
+            .style("mix-blend-mode", "multiply")
+            .attr("d", d => line(d));
+
+        
+        const dot = svg.append("g")
+            .attr("display", "none");
+
+        dot.append("circle")
+            .attr("r", 2.5);
+
+        dot.append("text")
+            .attr("text-anchor", "middle")
+            .attr("y", -8);
+
+        svg
+            .on("pointerenter", pointerentered)
+            .on("pointermove", pointermoved)
+            .on("pointerleave", pointerleft)
+            .on("touchstart", event => event.preventDefault());
+
+        function pointermoved(event) {
+            const [xm, ym] = d3.pointer(event);
+            const i = d3.leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
+            const [x, y, k] = points[i];
+            path.style("stroke", ([{2: z}]) => z === k ? "blue" : "#ddd")
+                .style("opacity", ([{2: z}]) => z === k ? 1 : 0.2)
+                .filter(([{2: z}]) => z === k).raise();
+            dot.attr("transform", `translate(${x},${y})`);
+            dot.select("text").text(k);
+            svg.property("value", data[i]).dispatch("input", {bubbles: true});
+        }
+
+        function pointerentered() {
+            path.style("mix-blend-mode", null).style("stroke", "#ddd").style("opacity", 0.5);
+            dot.attr("display", null);
+        }
+
+        function pointerleft() {
+            path.style("mix-blend-mode", "multiply").style("stroke", "steelblue").style("opacity", 0.9);
+            dot.attr("display", "none");
+            svg.node().value = null;
+            svg.dispatch("input", {bubbles: true});
+        }
+    </script>
 </body>
 </html>
