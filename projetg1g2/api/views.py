@@ -9,12 +9,28 @@ from modele_degivrage_test import alg1,alg2,alg3,alg4
 from itertools import chain
 import json
 
+from rest_framework import generics
+from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny
+from .serializers import UserSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
 
 
+class HelloWorld(APIView):
+    permission_classes = (IsAuthenticated,)
 
+    def get(self, request):
+        return Response(data={"message": "Hello, world!"}, status=200)
 
 
 
